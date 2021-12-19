@@ -2,6 +2,7 @@ import React from 'react';
 import style from './style.css';
 
 const Message = ({message}) => {
+    console.log(message)
     return(
         <div className="message-container">
             <div className="message-time">

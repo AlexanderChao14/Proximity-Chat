@@ -9,12 +9,13 @@ export default class Controller{
 
     constructor(){
         console.log('Controller created');
-        this.key = Math.random();
+        this.key = Math.floor(Math.random() * 10);
         this.socket = socketIOClient('localhost:5000');
         this.socket.on('new message', (message) => {
             this.newMessage(message);
         })
         this.newMessageCallbacks = [];
+        this.username = 'user' + this.key;
     }
 
     addMessageListener(callback){
@@ -28,7 +29,16 @@ export default class Controller{
     }
 
     sendMessage(message){
-        this.socket.emit('message', message);
+        // get time of message
+        let time = new Date();
+        let timeString = time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
+        // create message object
+        let messageObject = {
+            'user': this.username,
+            'text': message,
+            'time': timeString
+        }
+        this.socket.emit('message', messageObject);
     }
 
     static getInstance(){

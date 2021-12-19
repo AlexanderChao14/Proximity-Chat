@@ -16,7 +16,7 @@ const InputField = () => {
     return (
         <div className="input-field">
             <form onSubmit={sendMessage}>
-                <input id="message" type="text" />
+                <input id="message" type="text" autocomplete="off"/>
                 <button type="submit">Send</button>
             </form>
         </div>

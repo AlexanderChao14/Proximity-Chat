@@ -10,7 +10,6 @@ const ChatContainer = () => {
     useEffect(() => {
         controller.addMessageListener(message => {
             setMessages(messages => [...messages, message]);
-            //console.log(message['time']);
         });
     }, []);
 
