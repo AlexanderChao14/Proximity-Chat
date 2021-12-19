@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './style.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Controller from '../../Controller';
 
 const Seating = () => {
@@ -8,7 +8,7 @@ const Seating = () => {
     const [currentSeating, setCurrentSeating] = useState([4,4]);
     const [volume, setVolume] = useState(1);
     const [otherUsers, setOtherUsers] = useState([[1,5],[5,5]]);
-    const controller = Controller.getInstance
+    const controller = Controller.getInstance();
 
     const generateTable = (width, height) =>{
         let table = [];
@@ -68,6 +68,11 @@ const Seating = () => {
         if(otherUsers.some(user => user[0] === y && user[1] === x)){
             return;
         }
+        const data = {
+            'old': [currentSeating[0], currentSeating[1]],
+            'new': [y, x]
+        }
+        controller.moveSeats(data);
         setCurrentSeating([y, x]);
     }
 

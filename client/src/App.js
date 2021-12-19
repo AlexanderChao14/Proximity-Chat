@@ -13,6 +13,7 @@ function App() {
       <header className="container">
         <Seating/>
         <ChatContainer/>
+        
       </header>
     </div>
   );

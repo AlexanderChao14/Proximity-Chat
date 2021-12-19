@@ -15,7 +15,17 @@ export default class Controller{
             this.newMessage(message);
         })
         this.newMessageCallbacks = [];
+        this.socket.on('user moved seats', (data) => {
+            console.log(data);
+            this.newSeats(data);
+        });
+        this.newSeatsCallbacks = [];
         this.username = 'user' + this.key;
+    }
+
+
+    addSeatsCallback(callback){
+        this.newSeatsCallbacks.push(callback);
     }
 
     addMessageListener(callback){
@@ -28,6 +38,13 @@ export default class Controller{
         });
     }
 
+    newSeats(data){
+        this.newSeatsCallbacks.forEach(callback => {
+            callback(data);
+        });
+    }
+
+
     sendMessage(message){
         // get time of message
         let time = new Date();
@@ -39,6 +56,12 @@ export default class Controller{
             'time': timeString
         }
         this.socket.emit('message', messageObject);
+    }
+
+    moveSeats(data){
+        data['user'] = this.username;
+        console.log(data)
+        this.socket.emit('user moved seats', data);
     }
 
     static getInstance(){
