@@ -1,0 +1,54 @@
+.seat{
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    background-color: #f0f0f0;
+    display: inline-block;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.seating-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+}
+
+.seating-table{
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.volume-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.volume{
+    margin-left: 20px;
+}
+
+#current-seat{
+    background-color: #ff0000;
+}
+
+#occupied-seat{
+    background-color: #00ff00;
+}
