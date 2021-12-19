@@ -10,24 +10,24 @@
 
 .seating-container{
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
 
 }
 
 .seating-table{
+    margin-top: 20%;
     width: 100%;
-    height: 100%;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
     text-align: center;
     align-items: center;
     justify-content: center;
     align-content: center;
-
 }
+
 
 .volume-container{
     width: 100%;
@@ -35,12 +35,14 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: flex-start;
+    align-items: baseline;
+    align-content: center;
 }
 
-.volume{
-    margin-left: 20px;
+.volume-container > *{
+    margin: 5px;
 }
+
 
 #current-seat{
     background-color: #ff0000;
@@ -48,4 +50,8 @@
 
 #occupied-seat{
     background-color: #00ff00;
+}
+
+#listening-seat{
+    border-color: orange;
 }
