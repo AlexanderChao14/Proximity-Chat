@@ -1,12 +1,14 @@
 import React from 'react';
 import style from './style.css';
 import { useState } from 'react';
+import Controller from '../../Controller';
 
 const Seating = () => {
     const gridSize = [20,10];
     const [currentSeating, setCurrentSeating] = useState([4,4]);
     const [volume, setVolume] = useState(1);
     const [otherUsers, setOtherUsers] = useState([[1,5],[5,5]]);
+    const controller = Controller.getInstance
 
     const generateTable = (width, height) =>{
         let table = [];
