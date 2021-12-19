@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react';
 function App() {
 
   const controller = Controller.getInstance();
+  controller.sendMessage('hello');
   return (
     <div className="App">
       <header className="container">

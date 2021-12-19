@@ -1,10 +1,24 @@
 import React from 'react';
+import Controller from '../../Controller';
 
 const InputField = () => {
+    const controller = Controller.getInstance();
+
+    const sendMessage = (e) => {
+        e.preventDefault();
+        let message = document.getElementById('message').value;
+        console.log(message)
+        controller.sendMessage(message);
+        document.getElementById('message').value = '';
+    }
+
+
     return (
-        <div className='input-container'>
-            <input type="text" placeholder="Type a message..."/>
-            <button>Send</button>
+        <div className="input-field">
+            <form onSubmit={sendMessage}>
+                <input id="message" type="text" />
+                <button type="submit">Send</button>
+            </form>
         </div>
     );
 }

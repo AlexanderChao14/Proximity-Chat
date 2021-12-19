@@ -10,11 +10,18 @@ app.get('/', function(req, res) {
 io.on('connection', function(socket) {
    console.log('A user connected');
    //Whenever someone disconnects this piece of code executed
+
    socket.on('disconnect', function () {
-      //console.log('A user disconnected');
+      console.log('A user disconnected');
    });
 
+   socket.on('message', function(message) {
+      console.log(message);
+      io.emit('new message', {time: '12:00', user: 'user', text: message});
+   });
 });
+
+
 
 
 

@@ -18,8 +18,6 @@
     overflow-x: hidden;
 }
 
-
-
 .message-container{
     display: grid;
     grid-template-columns: 0.2fr 0.3fr 2.2fr;
@@ -44,7 +42,6 @@
     grid-area: message-text; 
     text-align: left;
     color: black;
-
 }
   
 
