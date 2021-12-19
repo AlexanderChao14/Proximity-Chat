@@ -15,8 +15,6 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    overflow-y: scroll;
-    overflow-x: hidden;
 
 }
 
@@ -28,8 +26,7 @@
     align-items: center;
     justify-content: center;
     align-content: center;
-    overflow-y: scroll;
-    overflow-x: hidden;
+
 }
 
 .volume-container{
