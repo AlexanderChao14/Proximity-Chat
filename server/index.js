@@ -38,6 +38,6 @@ io.on('connection', function(socket) {
 
 
 
-http.listen(5000, function() {
-   console.log('listening on *:5000');
+http.listen(5500, function() {
+   console.log('listening on *:5500');
 });
