@@ -9,8 +9,11 @@ const InputField = () => {
         let message = document.getElementById('message').value;
         console.log(message)
         controller.sendMessage(message);
+        
         document.getElementById('message').value = '';
     }
+
+
 
 
     return (

@@ -5,6 +5,7 @@ export default class Controller{
 
     static myInstance = null;
     static ENDPOINT = 'localhost:5500';
+    
 
 
     constructor(){
@@ -21,6 +22,7 @@ export default class Controller{
         });
         this.newSeatsCallbacks = [];
         this.username = 'user' + this.key;
+        this.range = 1;
     }
 
 
@@ -51,11 +53,12 @@ export default class Controller{
         let timeString = time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
         // create message object
         let messageObject = {
+            'range': this.range,
             'user': this.username,
             'text': message,
             'time': timeString
         }
-        this.socket.emit('message', messageObject);
+        this.socket.emit('range message', messageObject);
     }
 
     moveSeats(data){

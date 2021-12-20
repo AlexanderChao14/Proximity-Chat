@@ -7,20 +7,18 @@ const Seating = () => {
     const gridSize = [20,10];
     const [currentSeating, setCurrentSeating] = useState([4,4]);
     const [volume, setVolume] = useState(1);
-    const [otherUsers, setOtherUsers] = useState([[1,5],[5,5]]);
     const controller = Controller.getInstance();
 
     const generateTable = (width, height) =>{
         let table = [];
         let listening = affectedByVolume(currentSeating[0], currentSeating[1]);
+        controller.range = volume;
         for(let i = 0; i < height; i++){
             let row = [];
             for(let j = 0; j < width; j++){
                 let id = "";
                 if(currentSeating[0] === j && currentSeating[1] === i){
                     id += 'current-seat';
-                }else if(otherUsers.some(user => user[0] === j && user[1] === i)){
-                    id += 'occupied-seat';
                 }else if(listening.some(user => user[0] === j && user[1] === i)){
                     id += 'listening-seat';
                 }
@@ -36,38 +34,26 @@ const Seating = () => {
         return affected;
     }
 
-    const _getAffectedSeats = (x, y, depth) => {
-        // non recursive
-        let affected = [];
-         for(let i = 0; i < depth; i++){
-             for(let j = 0; j < depth; j++){
-                 affected.push([x + i, y + j]);
-             }
-        }
-        for(let i = 0; i < depth; i++){
-            for(let j = 0; j < depth; j++){
-                affected.push([x - i, y + j]);
-            }
-       }
-        for(let i = 0; i < depth; i++){
-            for(let j = 0; j < depth; j++){
-                affected.push([x + i, y - j]);
-            }   
-        }
-        for(let i = 0; i < depth; i++){
-            for(let j = 0; j < depth; j++){
-                affected.push([x - i, y - j]);
-            }   
-        }
-        return affected;
+    
+    function calculateDistance(p1, p2){
+        return Math.sqrt(Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2));
+    }
 
+    const _getAffectedSeats = (x, y, depth) => {
+        // go through all entries in the seating array
+        let affected = [];
+        for(let i = 0; i < gridSize[0]; i++){
+            for(let j = 0; j < gridSize[1]; j++){
+                if(calculateDistance([x,y], [i,j]) <= depth){
+                    affected.push([i,j]);
+                }
+            }
+        }  
+        return affected;
     }
 
 
     const moveSeats = (y, x) => {
-        if(otherUsers.some(user => user[0] === y && user[1] === x)){
-            return;
-        }
         const data = {
             'old': [currentSeating[0], currentSeating[1]],
             'new': [y, x]
