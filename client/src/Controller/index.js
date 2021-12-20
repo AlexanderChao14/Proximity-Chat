@@ -4,13 +4,13 @@ import socketIOClient from "socket.io-client";
 export default class Controller{
 
     static myInstance = null;
-    static ENDPOINT = 'localhost:5000';
+    static ENDPOINT = 'localhost:5500';
 
 
     constructor(){
         console.log('Controller created');
         this.key = Math.floor(Math.random() * 10);
-        this.socket = socketIOClient('localhost:5000');
+        this.socket = socketIOClient('localhost:5500');
         this.socket.on('new message', (message) => {
             this.newMessage(message);
         })
