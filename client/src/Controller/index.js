@@ -14,6 +14,9 @@ export default class Controller{
         this.socket = socketIOClient('localhost:5500');
         this.assignedSeatCallback = [];
         this.newSeatsCallbacks = [];
+        this.newMessageCallbacks = [];
+        this.newNameCallback = [];
+
         this.username = 'user' + this.key;
         this.range = 1;
 
@@ -40,9 +43,15 @@ export default class Controller{
 
     }
 
+
     setUsername(name){
         this.username = name;
         this.socket.emit('set username', {'username': name});
+        this.newNameCallback();
+    }
+
+    addNewNameListener(callback){
+        this.newNameCallback.push(callback);
     }
 
 
@@ -56,6 +65,12 @@ export default class Controller{
 
     addAssignSeatListener(callback){
         this.assignedSeatCallback.push(callback);
+    }
+
+    newUsername(name){
+        this.newNameCallback.forEach(callback => {
+            callback(name);
+        });
     }
 
     

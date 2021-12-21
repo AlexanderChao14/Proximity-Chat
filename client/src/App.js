@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import ChatContainer from './Components/ChatBox/ChatContainer.js';
 import Seating from './Components/Seating/Seating.js';

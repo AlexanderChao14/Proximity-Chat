@@ -1,16 +1,13 @@
-const app = require('express')();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
 
-app.get('/', function(req, res) {
-   res.send('Hello world!');
-});
+const express = require('express');
+const PORT = process.env.PORT || 5500;
+const INDEX = '/index.html';
 
-app.get('/reset', function(req, res) {
-   // removes all sockets from connections and seats
-   seating = new Array(20).fill(0).map(() => new Array(10).fill(0));  
-   console.log('reseting')
-});
+const server = express()
+  .use((req, res) => res.send('hello world'))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+
 
 let seating = new Array(20).fill(0).map(() => new Array(10).fill(0));
 let socket_location = {};
@@ -27,6 +24,8 @@ function findRandomSeat(){
    }
    return [x, y];
 }
+
+const io = require('socket.io')(server);
 
 //Whenever someone connects this gets executed
 io.on('connection', function(socket) {
@@ -104,9 +103,3 @@ io.on('connection', function(socket) {
 
 
 
-
-
-
-http.listen(5500, function() {
-   console.log('listening on *:5500');
-});
