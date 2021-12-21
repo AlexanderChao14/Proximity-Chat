@@ -16,6 +16,9 @@
     align-items: flex-start;
     overflow-y: scroll;
     overflow-x: hidden;
+    background-image: url('./animalcrossing2.png');
+    background-repeat:  no-repeat;
+    background-size: 100% 100%;
 }
 
 .message-container{
@@ -33,11 +36,13 @@
 .message-time { 
     grid-area: message-time; 
     color: gray;
+    font-weight: bold;
 }
 
 .user { 
     grid-area: user; 
     color: green;
+    font-weight: bold;
 }
 
 .message-text { 
@@ -49,6 +54,7 @@
     word-wrap: break-word;
     hyphens: auto;
     white-space: normal;   
+    font-weight: bold;
 
 }
   
@@ -58,5 +64,14 @@
     display: flex;
     color: black;
     padding-top: 5px;
+}
+
+#messageHeader{
+    font-size: 24pt;
+    
+}
+
+.input-field{
+    /* background-color: lightblue; */
 }
 
