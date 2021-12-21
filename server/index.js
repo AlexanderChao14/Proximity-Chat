@@ -6,6 +6,12 @@ app.get('/', function(req, res) {
    res.send('Hello world!');
 });
 
+app.get('/reset', function(req, res) {
+   // removes all sockets from connections and seats
+   seating = new Array(20).fill(0).map(() => new Array(10).fill(0));  
+   console.log('reseting')
+});
+
 let seating = new Array(20).fill(0).map(() => new Array(10).fill(0));
 let socket_location = {};
 
@@ -71,7 +77,7 @@ io.on('connection', function(socket) {
       // find that sockets location in socket_locations
       const location = socket_location[socket.id];
       seating[location[0]][location[1]] = username;
-      socket.broadcast.emit('new seating arrangement', seating);
+      io.emit('new seating arrangement', seating);
    })
 
    socket.on('range message', function(data){
