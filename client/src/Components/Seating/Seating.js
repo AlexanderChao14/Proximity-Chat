@@ -87,7 +87,11 @@ const Seating = () => {
         
     }
 
-    
+    const setStateVolume = (volume) => {
+        if(volume > 0 && volume <= 22){
+            setVolume(volume);
+        }
+    }
 
 
     return (
@@ -96,14 +100,20 @@ const Seating = () => {
                 {generateTable(gridSize[0], gridSize[1])}
             </div>
             <div className = "volume-container">
-                <button className='volume' id = "increase-volume" onClick={() => setVolume(volume + 1)}>
+                <button className='volume' id = "max-volume" onClick={() => setStateVolume(1)}>
+                    Min Volume
+                </button>
+                <button className='volume' id = "increase-volume" onClick={() => setStateVolume(volume + 1)}>
                     Increase Volume
                 </button>
                 <p>
                     {volume}
                 </p>
-                <button className='volume' id = "decrease-volume" onClick={() => setVolume(volume - 1)}>
+                <button className='volume' id = "decrease-volume" onClick={() => setStateVolume(volume - 1)}>
                     Decrease Volume
+                </button>
+                <button className='volume' id = "max-volume" onClick={() => setStateVolume(22)}>
+                    Max Volume
                 </button>
             </div>
         </div>
