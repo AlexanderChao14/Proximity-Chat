@@ -6,8 +6,10 @@ const UserNameInput = () => {
 
     const submitUserName = (e) => {
         e.preventDefault();
-        controller.username = document.getElementById('UserName').value;
+        const username = document.getElementById('UserName').value;
+        controller.setUsername(username);
         console.log(controller.username);
+
     }
 
     return (

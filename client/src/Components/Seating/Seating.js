@@ -3,26 +3,47 @@ import style from './style.css';
 import { useState, useEffect } from 'react';
 import Controller from '../../Controller';
 
+
 const Seating = () => {
     const gridSize = [20,10];
-    const [currentSeating, setCurrentSeating] = useState([4,4]);
+    const [currentSeating, setCurrentSeating] = useState([-1,-1]);
+    const [seating, setSeating] = useState(new Array(20).fill(0).map(() => new Array(10).fill(0)));
     const [volume, setVolume] = useState(1);
     const controller = Controller.getInstance();
+
+    useEffect(() => {
+        controller.addSeatsCallback(setSeating);
+        controller.addAssignSeatListener(setCurrentSeating);
+    }, []);
 
     const generateTable = (width, height) =>{
         let table = [];
         let listening = affectedByVolume(currentSeating[0], currentSeating[1]);
         controller.range = volume;
+        console.log(seating)
         for(let i = 0; i < height; i++){
             let row = [];
             for(let j = 0; j < width; j++){
-                let id = "";
+                let classes = ['seat'];
                 if(currentSeating[0] === j && currentSeating[1] === i){
-                    id += 'current-seat';
-                }else if(listening.some(user => user[0] === j && user[1] === i)){
-                    id += 'listening-seat';
+                    classes.push('current-seat')
+                }else if(seating[j][i] != 0){
+                    classes.push('occupied-seat');
                 }
-                row.push(<div className = "seat" key = {i + j} id={id} onClick={() => {moveSeats(j, i)}}> </div>);
+                
+                if(listening.some(user => user[0] === j && user[1] === i)){
+                    classes.push('listening-seat');
+                }
+
+                // join all id's together with spacing
+                let classString = classes.join(' ');
+
+                row.push(<div className = {classString} key = {i + j} onClick={() => {moveSeats(j, i)}}>
+                    {seating[j][i] != 0 ? 
+                        <div class='seating-text'>{seating[j][i]}</div> 
+                        : ''
+                    }
+                </div>);
             }
             table.push(<div className = "row" key = {i}>{row}</div>);
         }
@@ -54,12 +75,16 @@ const Seating = () => {
 
 
     const moveSeats = (y, x) => {
-        const data = {
-            'old': [currentSeating[0], currentSeating[1]],
-            'new': [y, x]
+        // check that the seat is empty
+        if(seating[y][x] == 0){
+            const data = {
+                'old': [currentSeating[0], currentSeating[1]],
+                'new': [y, x]
+            }
+            controller.moveSeats(data);
+            setCurrentSeating([y, x]);
         }
-        controller.moveSeats(data);
-        setCurrentSeating([y, x]);
+        
     }
 
     

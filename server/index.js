@@ -12,18 +12,40 @@ let socket_location = {};
 function calculateDistance(p1, p2){
    return Math.sqrt(Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2));
 }
-
+function findRandomSeat(){
+   let x = Math.floor(Math.random() * 10);
+   let y = Math.floor(Math.random() * 20);
+   while(seating[x][y] != 0){
+      x = Math.floor(Math.random() * 10);
+      y = Math.floor(Math.random() * 20);
+   }
+   return [x, y];
+}
 
 //Whenever someone connects this gets executed
 io.on('connection', function(socket) {
+   console.log('A user connected');
+   // assign new user with random seat
+   let new_seat = findRandomSeat();
+   seating[new_seat[0]][new_seat[1]] = socket.id;
+   socket_location[socket.id] = new_seat;
+   socket.emit('random seat', new_seat);
+   io.emit('new seating arrangement', seating);;
+
    //console.log('A user connected');
    //Whenever someone disconnects this piece of code executed
 
    socket.on('disconnect', function () {
-      //console.log('A user disconnected');
+      console.log('A user disconnected');
+      // remove them from seating list
+      if(socket_location[socket.id]){
+         seating[socket_location[socket.id][0]][socket_location[socket.id][1]] = 0;
+         delete socket_location[socket.id];
+         socket.broadcast.emit('new seating arrangement', seating);
+      }
+
       
    });
-
    socket.on('message', function(message) {
       console.log(message);
       io.emit('new message', message);
@@ -41,8 +63,16 @@ io.on('connection', function(socket) {
       // key position, value socket
       socket_location[socket.id] = new_;
       //console.log(socket_location);
-      socket.broadcast.emit('user moved seats', seating);
+      io.emit('new seating arrangement', seating);
    });
+
+   socket.on('set username', ({username}) => {
+      console.log('setting username', username);
+      // find that sockets location in socket_locations
+      const location = socket_location[socket.id];
+      seating[location[0]][location[1]] = username;
+      socket.broadcast.emit('new seating arrangement', seating);
+   })
 
    socket.on('range message', function(data){
       console.log('sending message', data);
@@ -64,9 +94,6 @@ io.on('connection', function(socket) {
       });
 
    });
-
-
-
 });
 
 
