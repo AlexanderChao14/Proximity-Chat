@@ -1,0 +1,16 @@
+#userNameHeader{
+    font-size: 20pt;
+    font-weight: bold;
+}
+
+.UserNameInput{
+    display: flex;
+    flex-direction:column;
+    justify-self: left;
+    justify-content: center;
+    vertical-align: super;
+    align-items: center;
+    width: 60%;
+    position:fixed;
+
+}
