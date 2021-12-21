@@ -3,15 +3,12 @@ import socketIOClient from "socket.io-client";
 
 export default class Controller{
 
-    static myInstance = null;
-    static ENDPOINT = 'localhost:5500';
-    
-
-
+    static myInstance = null; 
     constructor(){
+        this.ENDPOINT = 'https://proximity-chat-server-00.herokuapp.com/';
         console.log('Controller created');
         this.key = Math.floor(Math.random() * 10);
-        this.socket = socketIOClient('localhost:5500');
+        this.socket = socketIOClient(this.ENDPOINT);
         this.assignedSeatCallback = [];
         this.newSeatsCallbacks = [];
         this.newMessageCallbacks = [];
