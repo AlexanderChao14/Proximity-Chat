@@ -103,14 +103,14 @@ const Seating = () => {
                 <button className='volume' id = "max-volume" onClick={() => setStateVolume(1)}>
                     Min Volume
                 </button>
-                <button className='volume' id = "increase-volume" onClick={() => setStateVolume(volume + 1)}>
-                    Increase Volume
+                <button className='volume' id = "decrease-volume" onClick={() => setStateVolume(volume - 1)}>
+                    Decrease Volume
                 </button>
                 <p>
                     {volume}
                 </p>
-                <button className='volume' id = "decrease-volume" onClick={() => setStateVolume(volume - 1)}>
-                    Decrease Volume
+                <button className='volume' id = "increase-volume" onClick={() => setStateVolume(volume + 1)}>
+                    Increase Volume
                 </button>
                 <button className='volume' id = "max-volume" onClick={() => setStateVolume(22)}>
                     Max Volume
